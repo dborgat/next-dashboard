@@ -8,11 +8,14 @@ const config: Config = {
   ],
   theme: {
     colors: {
-      'prusian': '#003049',
-      'fire': '#D62828',
-      'orange': '#F77F00',
-      'xanthous': '#FCBF49',
-      'vanilla': '#EAE2B7',
+      'france': '#3083DC',
+      'blue': '#016FB9',
+      'wine': '#773344',
+      'utorange': '#FF8811',
+      'gray': '#CAD2C5',
+      'lightCoral': '#E98686',
+      'licorice': '#140200',
+      'transparent': 'transparent'
     },
   },
   plugins: [],

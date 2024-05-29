@@ -6,7 +6,7 @@ import { menuItems } from '../../../helpers/menuItems';
 
 const Sidebar = () => {
   return (
-    <div className='h-full grid content-between'>
+    <div className='h-full grid'>
       <div className='flex items-center gap-5 mb-5'>
         <Image
           src='/noavatar.png'
@@ -20,10 +20,10 @@ const Sidebar = () => {
           <span className='text-red-950'>Admin</span>
         </div>
       </div>
-      <ul className='bg-vanilla'>
+      <ul>
         {menuItems?.map((item) => (
           <li key={item.title} className=''>
-            <h2 className='text-prusian font-bold text-sm mt-2 mb-0'>
+            <h2 className='text-licorice font-bold text-sm mt-2 mb-0'>
               {item.title}
             </h2>
             <ul>
@@ -34,8 +34,8 @@ const Sidebar = () => {
           </li>
         ))}
       </ul>
-      <div>
-        <button className='p-3 mt-1 mb-0 flex items-center gap-2 cursor-pointer rounded-lg bg-none border-none w-full hover:bg-orange'>
+      <div className='grid'>
+        <button className='p-3 mt-1 mb-0 flex items-center gap-2 cursor-pointer rounded-lg bg-none border-none w-full hover:bg-blue place-self-end'>
           <MdLogout />
           <span>Salir</span>
         </button>
