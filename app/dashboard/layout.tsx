@@ -8,11 +8,11 @@ interface DashboardLayoutProps {
 
 const DashboardLayout = ({ children }: DashboardLayoutProps) => {
   return (
-    <div className='flex'>
-      <div className='flex-1 bg-red-500 p-5'>
+    <div className='grid grid-cols-5 h-screen'>
+      <div className='col-span-1 bg-fire p-5'>
         <Sidebar />
       </div>
-      <div className='flex-[4_4_0%] bg-slate-300 p-20'>
+      <div className='col-span-4 bg-prusian p-5'>
         <Navbar />
         {children}
       </div>
