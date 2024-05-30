@@ -9,7 +9,7 @@ interface DashboardLayoutProps {
 const DashboardLayout = ({ children }: DashboardLayoutProps) => {
   return (
     <div className='grid grid-cols-5 h-screen'>
-      <div className='col-span-1 bg-france p-5'>
+      <div className='col-span-1 p-5'>
         <Sidebar />
       </div>
       <div className='col-span-4 bg-gray p-5'>
