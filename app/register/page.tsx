@@ -1,10 +1,12 @@
 'use client';
 import React, { useState } from 'react';
+import { FaEyeSlash, FaEye } from 'react-icons/fa';
 import { MdPets } from 'react-icons/md';
 
 const RegisterPage: React.FC = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleUsernameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setUsername(event.target.value);
@@ -12,6 +14,10 @@ const RegisterPage: React.FC = () => {
 
   const handlePasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setPassword(event.target.value);
+  };
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
   };
 
   const handleSubmit = (event: React.FormEvent) => {
@@ -42,21 +48,55 @@ const RegisterPage: React.FC = () => {
             <label className='text-sm text-gray-200'>
               Ingresa tu contraseña
             </label>
-            <input
-              className='p-2 rounded-lg text-black border-none focus:outline-none'
-              type='password'
-              placeholder='Contraseña'
-            />
+            <div className='flex bg-white justify-between rounded-lg items-center'>
+              <input
+                className='p-2 text-black rounded-lg bg-transparent w-3/4 border-none focus:outline-none'
+                type={showPassword ? 'text' : 'password'}
+                placeholder='Contraseña'
+              />
+              {showPassword ? (
+                <FaEyeSlash
+                  onClick={togglePasswordVisibility}
+                  color='grey'
+                  className='mr-5'
+                  size='25'
+                />
+              ) : (
+                <FaEye
+                  onClick={togglePasswordVisibility}
+                  color='grey'
+                  className='mr-5'
+                  size='25'
+                />
+              )}
+            </div>
           </div>
           <div className='grid gap-1'>
             <label className='text-sm text-gray-200'>
-              Confirma tu contraseña
+              Repeti tu contraseña
             </label>
-            <input
-              className='p-2 rounded-lg text-black border-none focus:outline-none'
-              type='password'
-              placeholder='Confirmar contraseña'
-            />
+            <div className='flex bg-white justify-between rounded-lg items-center'>
+              <input
+                className='p-2 text-black rounded-lg bg-transparent w-3/4 border-none focus:outline-none'
+                type={showPassword ? 'text' : 'password'}
+                placeholder='Repite tu contraseña'
+              />
+              {showPassword ? (
+                <FaEyeSlash
+                  onClick={togglePasswordVisibility}
+                  color='grey'
+                  className='mr-5'
+                  size='25'
+                />
+              ) : (
+                <FaEye
+                  onClick={togglePasswordVisibility}
+                  color='grey'
+                  className='mr-5'
+                  size='25'
+                />
+              )}
+            </div>
           </div>
           <button className='p-2 rounded-lg bg-slate-500'>Registrarse</button>
           <span className='text-sm text-gray-200 text-center'>

@@ -17,13 +17,13 @@ const Sidebar = () => {
         />
         <div className='grid'>
           <span className='font-semibold'>Davor Dev</span>
-          <span className='text-red-950'>Admin</span>
+          <span className='text-slate-400'>Administrador</span>
         </div>
       </div>
       <ul>
         {menuItems?.map((item) => (
           <li key={item.title} className=''>
-            <h2 className='text-licorice font-bold text-sm mt-2 mb-0'>
+            <h2 className='font-bold text-sm mt-2 mb-0 underline'>
               {item.title}
             </h2>
             <ul>
