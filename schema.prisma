@@ -1,0 +1,76 @@
+// schema.prisma
+
+generator client {
+    provider = "prisma-client-js"
+}
+
+datasource db {
+    provider  = "postgresql"
+    url       = env("POSTGRES_PRISMA_URL") // uses connection pooling
+    directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
+}
+
+model User {
+    id            Int           @id @default(autoincrement())
+    nombre        String
+    mail          String        @unique
+    password      String
+    rol           Role          @relation(fields: [rolId], references: [id])
+    zona          ZonaType      @relation(fields: [zonaId], references: [id])
+    familiaType   FamiliaType   @relation(fields: [familiaTypeId], references: [id])
+    hogarType     HogarType     @relation(fields: [hogarTypeId], references: [id])
+    rescataditos  Rescatadito[]
+    zonaId        Int
+    familiaTypeId Int
+    hogarTypeId   Int
+    rolId         Int
+}
+
+model Rescatadito {
+    id           Int        @id @default(autoincrement())
+    nombre       String
+    owner        User?       @relation(fields: [ownerId], references: [id])
+    rescate      Rescate    @relation(fields: [rescateId], references: [id])
+    animalType   AnimalType @relation(fields: [animalTypeId], references: [id])
+    salud        String
+    ownerId      Int?
+    rescateId    Int
+    animalTypeId Int
+}
+
+model AnimalType {
+    id           Int           @id @default(autoincrement())
+    type         String
+    rescataditos Rescatadito[]
+}
+
+model ZonaType {
+    id    Int    @id @default(autoincrement())
+    name  String
+    users User[]
+}
+
+model Rescate {
+    id           Int           @id @default(autoincrement())
+    zona         String
+    totalAmount  Decimal
+    rescataditos Rescatadito[]
+}
+
+model Role {
+    id    Int    @id @default(autoincrement())
+    type  String
+    users User[]
+}
+
+model FamiliaType {
+    id    Int    @id @default(autoincrement())
+    type  String
+    users User[]
+}
+
+model HogarType {
+    id    Int    @id @default(autoincrement())
+    type  String
+    users User[]
+}
