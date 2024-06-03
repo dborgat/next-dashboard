@@ -1,8 +1,9 @@
 import React from 'react';
-import { MdLogout } from 'react-icons/md';
 import MenuLink from './menuLink/menuLink';
 import Image from 'next/image';
 import { menuItems } from '../../../helpers/menuItems';
+import Cookies from 'js-cookie';
+import LogoutButton from './logout/logout';
 
 const Sidebar = () => {
   return (
@@ -34,12 +35,7 @@ const Sidebar = () => {
           </li>
         ))}
       </ul>
-      <div className='grid'>
-        <button className='p-3 mt-1 mb-0 flex items-center gap-2 cursor-pointer rounded-lg bg-none border-none w-full hover:bg-blue place-self-end'>
-          <MdLogout />
-          <span>Salir</span>
-        </button>
-      </div>
+      <LogoutButton />
     </div>
   );
 };

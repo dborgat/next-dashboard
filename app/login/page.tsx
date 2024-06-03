@@ -2,12 +2,49 @@
 import { useState } from 'react';
 import { FaEyeSlash, FaEye } from 'react-icons/fa';
 import { MdPets } from 'react-icons/md';
+import { useRouter } from 'next/navigation';
+import Cookies from 'js-cookie';
 
 const Login = () => {
+  const [userLogin, setUserLogin] = useState({
+    email: '',
+    password: '',
+  });
   const [showPassword, setShowPassword] = useState(false);
+  const router = useRouter();
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
+  };
+
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
+    setUserLogin({
+      ...userLogin,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleSubmit = async (event: React.FormEvent) => {
+    event.preventDefault();
+    try {
+      const response = await fetch('/api/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(userLogin),
+      });
+
+      const { token } = await response.json();
+
+      Cookies.set('token', token, { expires: 1 });
+      router.push('/dashboard');
+    } catch (error) {
+      console.error('Error iniciando sesión', error);
+      alert('Email o contraseña incorrectos');
+    }
   };
 
   return (
@@ -17,7 +54,7 @@ const Login = () => {
         <MdPets size={20} />
       </div>
       <div className='bg-zinc-700 flex flex-col gap-5 rounded-lg p-5 shadow-xl md:w-2/5'>
-        <form className='grid gap-5'>
+        <form className='grid gap-5' onSubmit={handleSubmit}>
           <span className='text-lg text-center'>Inicia sesion</span>
           <div className='grid gap-1'>
             <label className='text-sm text-gray-200'>
@@ -27,6 +64,10 @@ const Login = () => {
               className='p-2 rounded-lg text-black border-none focus:outline-none'
               type='email'
               placeholder='Username'
+              name='email'
+              onChange={handleChange}
+              required
+              value={userLogin.email}
             />
           </div>
           <div className='grid gap-1'>
@@ -38,6 +79,10 @@ const Login = () => {
                 className='p-2 text-black rounded-lg bg-transparent w-3/4 border-none focus:outline-none'
                 type={showPassword ? 'text' : 'password'}
                 placeholder='Password'
+                name='password'
+                onChange={handleChange}
+                value={userLogin.password}
+                required
               />
               {showPassword ? (
                 <FaEyeSlash
@@ -56,7 +101,9 @@ const Login = () => {
               )}
             </div>
           </div>
-          <button className='p-2 rounded-lg bg-slate-500 mt-5'>Ingresar</button>
+          <button className='p-2 rounded-lg bg-slate-500 mt-5' type='submit'>
+            Ingresar
+          </button>
           <span className='text-sm text-gray-200 text-center'>
             ¿No tienes cuenta? Registrate
           </span>

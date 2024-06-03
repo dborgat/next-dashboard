@@ -13,27 +13,47 @@ const RegisterForm: React.FC<RegisterFormProps> = ({
   zones,
   houseType,
 }) => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const [form, setForm] = useState({
+    name: '',
+    email: '',
+    password: '',
+    zone: '',
+    familyType: '',
+    houseType: '',
+  });
   const [showPassword, setShowPassword] = useState(false);
 
-  console.log(houseType, 'zones');
-
-  const handleUsernameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setUsername(event.target.value);
-  };
-
-  const handlePasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setPassword(event.target.value);
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
+    setForm({
+      ...form,
+      [e.target.name]: e.target.value,
+    });
   };
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
 
-  const handleSubmit = (event: React.FormEvent) => {
+  const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-    // Add your registration logic here
+    try {
+      const response = await fetch('/api/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(form),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        console.log(data);
+      }
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   return (
@@ -42,12 +62,30 @@ const RegisterForm: React.FC<RegisterFormProps> = ({
       <form onSubmit={handleSubmit} className='grid gap-5'>
         <div className='grid gap-1'>
           <label className='text-sm text-gray-200'>
+            Ingresa tu nombre de usuario
+          </label>
+          <input
+            className='p-2 rounded-lg text-black border-none focus:outline-none'
+            type='text'
+            name='name'
+            placeholder='Nombre de usuario'
+            onChange={handleChange}
+            value={form.name}
+            required
+          />
+        </div>
+        <div className='grid gap-1'>
+          <label className='text-sm text-gray-200'>
             Ingresa tu correo electronico
           </label>
           <input
             className='p-2 rounded-lg text-black border-none focus:outline-none'
             type='email'
+            name='email'
             placeholder='Email'
+            onChange={handleChange}
+            value={form.email}
+            required
           />
         </div>
         <div className='grid gap-1'>
@@ -57,6 +95,10 @@ const RegisterForm: React.FC<RegisterFormProps> = ({
               className='p-2 text-black rounded-lg bg-transparent w-3/4 border-none focus:outline-none'
               type={showPassword ? 'text' : 'password'}
               placeholder='Contraseña'
+              name='password'
+              onChange={handleChange}
+              value={form.password}
+              required
             />
             {showPassword ? (
               <FaEyeSlash
@@ -82,6 +124,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({
               className='p-2 text-black rounded-lg bg-transparent w-3/4 border-none focus:outline-none'
               type={showPassword ? 'text' : 'password'}
               placeholder='Repite tu contraseña'
+              required
             />
             {showPassword ? (
               <FaEyeSlash
@@ -104,7 +147,16 @@ const RegisterForm: React.FC<RegisterFormProps> = ({
           <label className='text-sm text-gray-200'>
             Selecciona tu zona de residencia
           </label>
-          <select className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5'>
+          <select
+            className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5'
+            name='zone'
+            onChange={handleChange}
+            value={form.zone}
+            required
+          >
+            <option value='' disabled hidden>
+              Selecciona una opción
+            </option>
             {zones.map(({ id, name }) => (
               <option key={id} value={id}>
                 {name}
@@ -116,7 +168,16 @@ const RegisterForm: React.FC<RegisterFormProps> = ({
           <label className='text-sm text-gray-200'>
             Selecciona tu tipo de hogar
           </label>
-          <select className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5'>
+          <select
+            className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5'
+            name='houseType'
+            onChange={handleChange}
+            value={form.houseType}
+            required
+          >
+            <option value='' disabled hidden>
+              Selecciona una opción
+            </option>
             {houseType.map(({ id, type }) => (
               <option key={id} value={id}>
                 {type}
@@ -128,7 +189,16 @@ const RegisterForm: React.FC<RegisterFormProps> = ({
           <label className='text-sm text-gray-200'>
             Selecciona el tipo de familia
           </label>
-          <select className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5'>
+          <select
+            className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5'
+            name='familyType'
+            onChange={handleChange}
+            defaultValue={form.familyType}
+            required
+          >
+            <option value='' disabled hidden>
+              Selecciona una opción
+            </option>
             {familyType.map(({ id, type }) => (
               <option key={id} value={id}>
                 {type}

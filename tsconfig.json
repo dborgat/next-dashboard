@@ -21,6 +21,6 @@
       "@/*": ["./*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "lib/prisma.js", "scripts/seed.js", "lib/data.js"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "lib/prisma.js", "scripts/seed.js", "lib/data.js", "app/api/login/route.js"],
   "exclude": ["node_modules"]
 }
