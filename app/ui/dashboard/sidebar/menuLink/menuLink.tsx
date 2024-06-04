@@ -13,12 +13,13 @@ interface MenuLinkProps {
 
 const MenuLink = ({ item }: MenuLinkProps) => {
   const pathname = usePathname();
-  console.log(pathname);
 
   return (
     <Link
       href={item.path}
-      className={`mt-3 p-3 flex items-center text-slate-100 gap-2 hover:bg-slate-400 ${pathname === item.path ? 'bg-slate-400' : ''} rounded-md`}
+      className={`mt-3 p-3 flex items-center text-slate-100 gap-2 hover:bg-slate-400 ${
+        pathname === item.path ? 'bg-slate-400' : ''
+      } rounded-md`}
     >
       {item.icon}
       {item.title}

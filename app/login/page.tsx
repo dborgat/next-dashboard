@@ -6,12 +6,12 @@ import { useRouter } from 'next/navigation';
 import Cookies from 'js-cookie';
 
 const Login = () => {
+  const router = useRouter();
   const [userLogin, setUserLogin] = useState({
     email: '',
     password: '',
   });
   const [showPassword, setShowPassword] = useState(false);
-  const router = useRouter();
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
@@ -104,11 +104,16 @@ const Login = () => {
           <button className='p-2 rounded-lg bg-slate-500 mt-5' type='submit'>
             Ingresar
           </button>
-          <span className='text-sm text-gray-200 text-center'>
-            ¿No tienes cuenta? Registrate
-          </span>
-          <button className='p-2 rounded-lg bg-slate-500'>Registrarse</button>
         </form>
+        <span className='text-sm text-gray-200 text-center'>
+          ¿No tienes cuenta? Registrate
+        </span>
+        <button
+          className='p-2 rounded-lg bg-slate-500'
+          onClick={() => router.push('/register')}
+        >
+          Registrarse
+        </button>
       </div>
     </div>
   );

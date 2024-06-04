@@ -9,7 +9,6 @@ export async function POST(req) {
   const body = await req.json();
   const { email, password } = body;
 
-  console.log(body, 'ppppppppp');
   if (!email || !password) {
     return NextResponse.json(
       { error: 'Email y contraseña son obligatorios' },
@@ -19,8 +18,8 @@ export async function POST(req) {
 
   try {
     // Buscar usuario por email
-    const user = await prisma.User.findUnique({
-      where: { mail: email },
+    const user = await prisma.user.findUnique({
+      where: { email },
     });
 
     if (!user) {

@@ -7,10 +7,7 @@ const LogoutButton: React.FC = () => {
   const router = useRouter();
 
   const handleLogout = () => {
-    // Eliminar el token de las cookies
     Cookies.remove('token');
-
-    // Redirigir al usuario a la página de login
     router.push('/login');
   };
 

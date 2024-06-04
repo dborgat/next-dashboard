@@ -1,6 +1,7 @@
 'use client';
 import React, { useState } from 'react';
 import { FaEyeSlash, FaEye } from 'react-icons/fa';
+import { useRouter } from 'next/navigation';
 
 interface RegisterFormProps {
   familyType: [{ id: number; type: string }];
@@ -13,6 +14,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({
   zones,
   houseType,
 }) => {
+  const router = useRouter();
   const [form, setForm] = useState({
     name: '',
     email: '',
@@ -48,8 +50,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({
       });
 
       if (response.ok) {
-        const data = await response.json();
-        console.log(data);
+        router.push('/login');
       }
     } catch (e) {
       console.log(e);
@@ -207,11 +208,16 @@ const RegisterForm: React.FC<RegisterFormProps> = ({
           </select>
         </div>
         <button className='p-2 rounded-lg bg-slate-500'>Registrarse</button>
-        <span className='text-sm text-gray-200 text-center'>
-          ¿Ya tienes cuenta? Inicia sesion
-        </span>
-        <button className='p-2 rounded-lg bg-slate-500'>Ingresar</button>
       </form>
+      <span className='text-sm text-gray-200 text-center'>
+        ¿Ya tienes cuenta? Inicia sesion
+      </span>
+      <button
+        className='p-2 rounded-lg bg-slate-500'
+        onClick={() => router.push('/login')}
+      >
+        Ir al login
+      </button>
     </div>
   );
 };

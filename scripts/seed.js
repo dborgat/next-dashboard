@@ -2,7 +2,7 @@
 const prisma = require('../lib/prisma');
 
 async function main() {
-  await prisma.zonaType.createMany({
+  await prisma.zoneType.createMany({
     data: [
       { name: 'Zona Norte 1' },
       { name: 'Zona Norte 2' },
@@ -15,17 +15,17 @@ async function main() {
     ],
   });
 
-  await prisma.familiaType.createMany({
+  await prisma.familyType.createMany({
     data: [
       { type: 'Una persona' },
       { type: 'Conviviendo con una o mas personas' },
     ],
   });
 
-  await prisma.hogarType.createMany({
+  await prisma.houseType.createMany({
     data: [
-      { type: 'Casa sin patio' },
-      { type: 'Casa con patio' },
+      { type: 'Depto / Casa sin patio / balcon' },
+      { type: 'Depto / Casa con patio / balcon' },
       { type: 'Departamento monoambiente' },
       { type: 'Departamento 2 ambientes' },
       { type: 'Departamento +2 ambientes' },
