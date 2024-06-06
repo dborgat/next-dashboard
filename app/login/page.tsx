@@ -37,10 +37,12 @@ const Login = () => {
         body: JSON.stringify(userLogin),
       });
 
-      const { token } = await response.json();
+      const { token, user } = await response.json();
+
+      console.log(user, '<////');
 
       Cookies.set('token', token, { expires: 1 });
-      router.push('/dashboard');
+      router.push(`/dashboard/${user.id}`);
     } catch (error) {
       console.error('Error iniciando sesión', error);
       alert('Email o contraseña incorrectos');

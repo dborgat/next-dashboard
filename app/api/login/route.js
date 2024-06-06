@@ -43,10 +43,8 @@ export async function POST(req) {
     const token = jwt.sign({ userId: user.id }, SECRET_KEY, {
       expiresIn: '1h',
     });
-    console.log(token, 'token');
-    console.log(user, 'user');
 
-    return NextResponse.json({ token }, { status: 200 });
+    return NextResponse.json({ token, user }, { status: 200 });
   } catch (error) {
     console.error(error);
     return NextResponse.json(
