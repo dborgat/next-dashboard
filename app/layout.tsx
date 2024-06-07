@@ -16,7 +16,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang='en'>
-      <body className={`${conforta.className} font-bold`}>{children}</body>
+      <body className={`${conforta.className} font-bold bg-slate-100`}>{children}</body>
     </html>
   );
 }

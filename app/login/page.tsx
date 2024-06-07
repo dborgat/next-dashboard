@@ -4,6 +4,7 @@ import { FaEyeSlash, FaEye } from 'react-icons/fa';
 import { MdPets } from 'react-icons/md';
 import { useRouter } from 'next/navigation';
 import Cookies from 'js-cookie';
+import Link from 'next/link';
 
 const Login = () => {
   const router = useRouter();
@@ -50,20 +51,20 @@ const Login = () => {
   };
 
   return (
-    <div className='md:bg-gradient-to-r from-indigo-500 from-10% via-sky-500 via-30% to-emerald-500 to-90% h-screen flex flex-col gap-4 p-5 justify-center bg-cyan-600 md:items-center'>
+    <div className='h-screen flex flex-col gap-4 p-5 justify-center md:items-center'>
       <div className='flex gap-3 items-center'>
         <h1 className='text-2xl'>Rescataditos</h1>
-        <MdPets size={20} />
+        <MdPets size={20} color='#ef4444' />
       </div>
-      <div className='bg-zinc-700 flex flex-col gap-5 rounded-lg p-5 shadow-xl md:w-2/5'>
+      <div className='bg-slate-950 flex flex-col gap-5 p-5 shadow-xl md:w-2/5'>
         <form className='grid gap-5' onSubmit={handleSubmit}>
-          <span className='text-lg text-center'>Inicia sesion</span>
+          <span className='text-lg text-center text-white'>Inicia sesion</span>
           <div className='grid gap-1'>
             <label className='text-sm text-gray-200'>
               Ingresa tu correo electronico
             </label>
             <input
-              className='p-2 rounded-lg text-black border-none focus:outline-none'
+              className='p-2 text-black border-none focus:outline-none'
               type='email'
               placeholder='Username'
               name='email'
@@ -76,9 +77,9 @@ const Login = () => {
             <label className='text-sm text-gray-200'>
               Ingresa tu contraseña
             </label>
-            <div className='flex bg-white justify-between rounded-lg items-center'>
+            <div className='flex bg-white justify-between items-center'>
               <input
-                className='p-2 text-black rounded-lg bg-transparent w-3/4 border-none focus:outline-none'
+                className='p-2 text-black bg-transparent w-3/4 border-none focus:outline-none'
                 type={showPassword ? 'text' : 'password'}
                 placeholder='Password'
                 name='password'
@@ -103,15 +104,18 @@ const Login = () => {
               )}
             </div>
           </div>
-          <button className='p-2 rounded-lg bg-slate-500 mt-5' type='submit'>
+          <button className='p-2 bg-red-300 mt-5' type='submit'>
             Ingresar
           </button>
         </form>
-        <span className='text-sm text-gray-200 text-center'>
-          ¿No tienes cuenta? Registrate
-        </span>
+        <h3 className='text-sm text-gray-200 text-center'>
+          ¿No tienes cuenta?{' '}
+          <Link href={'/register'}>
+            <span className='underline text-orange-300'>Registrate</span>
+          </Link>
+        </h3>
         <button
-          className='p-2 rounded-lg bg-slate-500'
+          className='p-2 bg-red-500'
           onClick={() => router.push('/register')}
         >
           Registrarse
