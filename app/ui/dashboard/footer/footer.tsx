@@ -1,7 +1,7 @@
 import React from 'react';
 import { MdPets } from 'react-icons/md';
 
-const Navbar = () => {
+const Footer = () => {
   return (
     <div className='flex justify-between items-center p-5 bg-slate-950'>
       <div className='flex gap-3 items-center'>
@@ -12,4 +12,4 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;
+export default Footer;

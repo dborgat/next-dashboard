@@ -17,9 +17,9 @@ const MenuLink = ({ item }: MenuLinkProps) => {
   return (
     <Link
       href={item.path}
-      className={`mt-3 p-3 flex items-center text-slate-100 gap-2 hover:bg-slate-400 ${
-        pathname === item.path ? 'bg-slate-400' : ''
-      } rounded-md`}
+      className={`mt-3 p-3 flex items-center gap-2 hover:bg-slate-950 hover:text-white ${
+        pathname === item.path ? 'bg-slate-950 text-white' : ''
+      }`}
     >
       {item.icon}
       {item.title}

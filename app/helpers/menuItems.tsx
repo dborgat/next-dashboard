@@ -1,60 +1,42 @@
-import {
-  MdDashboard,
-  MdSupervisedUserCircle,
-  MdAttachMoney,
-  MdOutlineSettings,
-  MdHelpCenter,
-  MdLogout,
-  MdPets,
-  MdCelebration,
-  MdCompareArrows,
-} from 'react-icons/md';
-
 export const menuItems = [
   {
-    title: 'Paginas',
-    list: [
-      { title: 'Dashboard', path: '/dashboard', icon: <MdDashboard /> },
-      {
-        title: 'Usuarios',
-        path: '/dashboard/users',
-        icon: <MdSupervisedUserCircle />,
-      },
-      {
-        title: 'Rescataditos',
-        path: '/dashboard/rescataditos',
-        icon: <MdCelebration />,
-      },
-      {
-        title: 'Por adoptar',
-        path: '/dashboard/por-adoptar',
-        icon: <MdPets />,
-      },
-      {
-        title: 'En Transito',
-        path: '/dashboard/transito',
-        icon: <MdCompareArrows />,
-      },
-      {
-        title: 'Donaciones',
-        path: '/dashboard/donaciones',
-        icon: <MdAttachMoney />,
-      },
-    ],
+    title: 'Todos los usuarios',
+    path: '/dashboard/users',
   },
   {
-    title: 'Usuario',
-    list: [
-      {
-        title: 'Configuracion',
-        path: '/dashboard/configuracion',
-        icon: <MdOutlineSettings />,
-      },
-      {
-        title: 'Ayuda',
-        path: '/dashboard/ayuda',
-        icon: <MdHelpCenter />,
-      },
-    ],
+    title: 'Rescates',
+    path: '/dashboard/rescates',
+  },
+  {
+    title: 'Heroes',
+    path: '/dashboard/heroes',
+  },
+  {
+    title: 'Rescataditos',
+    path: '/dashboard/rescataditos',
+  },
+  {
+    title: 'Por adoptar',
+    path: '/dashboard/por-adoptar',
+  },
+  {
+    title: 'Zonas',
+    path: '/dashboard/zonas',
+  },
+  {
+    title: 'Transitantes',
+    path: '/dashboard/transitantes',
+  },
+  {
+    title: 'En Transito',
+    path: '/dashboard/transito',
+  },
+  {
+    title: 'Donaciones',
+    path: '/dashboard/donaciones',
+  },
+  {
+    title: 'Configuración',
+    path: '/dashboard/configuracion',
   },
 ];
