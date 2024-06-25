@@ -42,6 +42,38 @@ async function main() {
       { type: 'transitante' },
     ],
   });
+
+  // Seed for AnimalTypes
+  await prisma.animalType.createMany({
+    data: [{ type: 'Perro' }, { type: 'Gato' }],
+  });
+
+  // Seed for Rescues
+  await prisma.rescue.createMany({
+    data: [
+      { zoneId: 6, totalAmount: 1000 },
+      { zoneId: 6, totalAmount: 1500 },
+    ],
+  });
+
+
+  // Seed for Rescataditos
+  await prisma.rescatadito.createMany({
+    data: [
+      {
+        name: 'Pastelito',
+        rescueId: 1,
+        animalTypeId: 2,
+        health: 'Sano',
+      },
+      {
+        name: 'Stormy',
+        rescueId: 2,
+        animalTypeId: 2,
+        health: 'Necesita vacunas',
+      },
+    ],
+  });
 }
 
 main()

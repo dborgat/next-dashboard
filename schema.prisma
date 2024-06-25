@@ -45,16 +45,18 @@ model AnimalType {
 }
 
 model ZoneType {
-    id    Int    @id @default(autoincrement())
-    name  String
-    users User[]
+    id      Int      @id @default(autoincrement())
+    name    String
+    users   User[]
+    rescues Rescue[]
 }
 
 model Rescue {
     id           Int           @id @default(autoincrement())
-    zone         String
-    totalCount   Decimal
+    zone         ZoneType      @relation(fields: [zoneId], references: [id])
+    totalAmount  Decimal
     rescataditos Rescatadito[]
+    zoneId       Int
 }
 
 model Role {

@@ -31,16 +31,16 @@ export async function POST(req) {
   try {
     const newUser = await prisma.User.create({
       data: {
-        nombre: name,
-        mail: email,
+        name,
+        email,
         password: hashedPassword,
-        zona: {
+        zone: {
           connect: { id: +zone },
         },
-        familiaType: {
+        familyType: {
           connect: { id: +familyType },
         },
-        hogarType: {
+        houseType: {
           connect: { id: +houseType },
         },
         rol: {

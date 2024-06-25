@@ -1,8 +1,12 @@
 import type { Metadata } from 'next';
 import { Comfortaa } from 'next/font/google';
 import './ui/globals.css';
+import Navbar from './ui/dashboard/navbar/navbar';
 
-const conforta = Comfortaa({ subsets: ['latin'], weight: ['300', '400','500','600','700'] });
+const conforta = Comfortaa({
+  subsets: ['latin'],
+  weight: ['300', '400', '500', '600', '700'],
+});
 
 export const metadata: Metadata = {
   title: 'Rescataditos App',
@@ -16,7 +20,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang='en'>
-      <body className={`${conforta.className} font-bold bg-slate-100`}>{children}</body>
+      <body className={`${conforta.className} font-bold bg-slate-100`}>
+        <Navbar />
+        {children}
+      </body>
     </html>
   );
 }
