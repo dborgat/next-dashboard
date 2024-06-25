@@ -1,17 +1,20 @@
 'use client';
 import { useState } from 'react';
 import { FaEyeSlash, FaEye } from 'react-icons/fa';
-import { MdPets } from 'react-icons/md';
+import { BiLoaderAlt } from 'react-icons/bi';
 import { useRouter } from 'next/navigation';
 import Cookies from 'js-cookie';
 import Link from 'next/link';
+import { useUser } from '../context/UserContext';
 
 const Login = () => {
   const router = useRouter();
+  const { setUser } = useUser();
   const [userLogin, setUserLogin] = useState({
     email: '',
     password: '',
   });
+  const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
 
   const togglePasswordVisibility = () => {
@@ -29,6 +32,7 @@ const Login = () => {
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
+    setLoading(true);
     try {
       const response = await fetch('/api/login', {
         method: 'POST',
@@ -40,11 +44,14 @@ const Login = () => {
 
       const { token, user } = await response.json();
 
-      console.log(user, '<////');
-
-      Cookies.set('token', token, { expires: 1 });
-      router.push(`/dashboard/${user.id}`);
+      if (response.ok) {
+        setLoading(false);
+        setUser(user);
+        Cookies.set('token', token, { expires: 1 });
+        router.push(`/dashboard/${user.id}`);
+      }
     } catch (error) {
+      setLoading(false);
       console.error('Error iniciando sesión', error);
       alert('Email o contraseña incorrectos');
     }
@@ -52,10 +59,6 @@ const Login = () => {
 
   return (
     <div className='h-screen flex flex-col gap-4 p-5 justify-center md:items-center'>
-      <div className='flex gap-3 items-center'>
-        <h1 className='text-2xl'>Rescataditos</h1>
-        <MdPets size={20} color='#ef4444' />
-      </div>
       <div className='bg-slate-950 flex flex-col gap-5 p-5 shadow-xl md:w-2/5'>
         <form className='grid gap-5' onSubmit={handleSubmit}>
           <span className='text-lg text-center text-white'>Inicia sesion</span>
@@ -104,7 +107,14 @@ const Login = () => {
               )}
             </div>
           </div>
-          <button className='p-2 bg-red-300 mt-5' type='submit'>
+          <button
+            className={`p-2 ${
+              loading ? 'bg-slate-600' : 'bg-red-300'
+            } bg-red-300 mt-5 flex gap-5 justify-center items-center`}
+            type='submit'
+            disabled={loading}
+          >
+            {loading && <BiLoaderAlt className='animate-spin' />}
             Ingresar
           </button>
         </form>
@@ -115,8 +125,9 @@ const Login = () => {
           </Link>
         </h3>
         <button
-          className='p-2 bg-red-500'
+          className={`p-2 ${loading ? 'bg-slate-600' : 'bg-red-500'}`}
           onClick={() => router.push('/register')}
+          disabled={loading}
         >
           Registrarse
         </button>

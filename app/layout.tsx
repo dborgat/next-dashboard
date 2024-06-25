@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Comfortaa } from 'next/font/google';
 import './ui/globals.css';
 import Navbar from './ui/dashboard/navbar/navbar';
+import { UserProvider } from './context/UserContext';
 
 const conforta = Comfortaa({
   subsets: ['latin'],
@@ -22,7 +23,7 @@ export default function RootLayout({
     <html lang='en'>
       <body className={`${conforta.className} font-bold bg-slate-100`}>
         <Navbar />
-        {children}
+        <UserProvider>{children}</UserProvider>
       </body>
     </html>
   );

@@ -5,9 +5,16 @@ import prisma from '../../../lib/prisma';
 export async function POST(req) {
   const body = await req.json();
 
-  const { name, email, password, zone, familyType, houseType } = body;
-
-  if (!name || !email || !password || !zone || !familyType || !houseType) {
+  const { name, email, password, zone, familyType, houseType, rol } = body;
+  if (
+    !name ||
+    !email ||
+    !password ||
+    !zone ||
+    !familyType ||
+    !houseType ||
+    !rol
+  ) {
     return NextResponse.json(
       { error: 'Todos los campos son obligatorios' },
       { status: 400 }
@@ -44,7 +51,7 @@ export async function POST(req) {
           connect: { id: +houseType },
         },
         rol: {
-          connect: { id: 1 },
+          connect: { id: +rol },
         },
       },
     });
