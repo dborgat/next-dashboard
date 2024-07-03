@@ -15,10 +15,63 @@ const Login = () => {
     password: '',
   });
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState({
+    email: {
+      message: '',
+      state: false,
+    },
+    password: {
+      message: '',
+      state: false,
+    },
+  });
   const [showPassword, setShowPassword] = useState(false);
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
+  };
+
+  const isValidEmail = (email: string): boolean => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
+  const isPasswordValid = (password: string): boolean => {
+    const passwordRegex = /^(?=.*\d)(?=.*[A-Z]).{5,}$/;
+    return passwordRegex.test(password);
+  };
+
+  const handleEmailValidation = (email: string) => {
+    if (email === '')
+      return setError({ ...error, email: { state: false, message: '' } });
+    if (!isValidEmail(email)) {
+      setError({
+        ...error,
+        email: {
+          message: 'Por favor ingrese un email invalido',
+          state: true,
+        },
+      });
+    } else {
+      setError({ ...error, email: { message: '', state: false } });
+    }
+  };
+
+  const handlePasswordValidation = (password: string) => {
+    if (password === '')
+      return setError({ ...error, password: { state: false, message: '' } });
+    if (!isPasswordValid(password)) {
+      setError({
+        ...error,
+        password: {
+          message:
+            'La contraseña debe tener al menos 5 caracteres, una letra mayuscula y un numero',
+          state: true,
+        },
+      });
+    } else {
+      setError({ ...error, password: { message: '', state: false } });
+    }
   };
 
   const handleChange = (
@@ -69,12 +122,19 @@ const Login = () => {
             <input
               className='p-2 text-black border-none focus:outline-none'
               type='email'
-              placeholder='Username'
+              placeholder='Email'
               name='email'
               onChange={handleChange}
               required
               value={userLogin.email}
+              onFocus={() =>
+                setError({ ...error, email: { message: '', state: false } })
+              }
+              onBlur={() => handleEmailValidation(userLogin.email)}
             />
+            <label className='text-red-500 text-sm'>
+              {error.email.message}
+            </label>
           </div>
           <div className='grid gap-1'>
             <label className='text-sm text-gray-200'>
@@ -89,6 +149,13 @@ const Login = () => {
                 onChange={handleChange}
                 value={userLogin.password}
                 required
+                onFocus={() =>
+                  setError({
+                    ...error,
+                    password: { message: '', state: false },
+                  })
+                }
+                onBlur={() => handlePasswordValidation(userLogin.password)}
               />
               {showPassword ? (
                 <FaEyeSlash
@@ -106,13 +173,18 @@ const Login = () => {
                 />
               )}
             </div>
+            <label className='text-red-500 text-sm'>
+              {error.password.message}
+            </label>
           </div>
           <button
             className={`p-2 ${
-              loading ? 'bg-slate-600' : 'bg-red-300'
+              loading || error.password.state || error.email.state
+                ? 'bg-slate-600'
+                : 'bg-red-300'
             } bg-red-300 mt-5 flex gap-5 justify-center items-center`}
             type='submit'
-            disabled={loading}
+            disabled={loading || error.password.state || error.email.state}
           >
             {loading && <BiLoaderAlt className='animate-spin' />}
             Ingresar
